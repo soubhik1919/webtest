@@ -1,0 +1,49 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global Styles */
+body {
+    font-family: monospace;
+    line-height: 1.6;
+    background-image: url("/images/bkg0_body.jpg");
+    background-repeat:   no-repeat;
+}
+
+a {
+    padding-left: 0%;
+    padding-right: 3%;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    padding-top: 5%;
+    padding-left: 0%;
+}
+
+.banner {
+    padding-top: 5%;
+    padding-left: 0%;
+}
+
+#name {
+    font-family: Candara, monospace;
+    font-size: 75px;
+    font-weight:bolder;
+    color: #52796f;
+}
+
+#bio{
+    font-family: Candara, monospace;
+    font-size: 30px;
+    color: #00509d;
+}
+
+#enter_blog{
+    position: relative;
+    left: 35%;
+}
