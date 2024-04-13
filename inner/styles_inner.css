@@ -7,8 +7,16 @@
 
 /* Global Styles */
 body {
+    margin-left: 10%;
+    margin-right: 10%;
     font-family: monospace;
     line-height: 1.6;
+}
+p {
+    font-family: Candara, monospace;
+    font-size: 20px;
+    font-weight:normal;
+    color: #000000;
 }
 
 a {
@@ -34,20 +42,9 @@ a {
     padding-left: 0%;
 }
 
-#name {
-    font-family: Candara, monospace;
-    font-size: 75px;
+#topic_name {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 50px;
     font-weight:bolder;
-    color: #52796f;
-}
-
-#bio{
-    font-family: Candara, monospace;
-    font-size: 30px;
-    color: #00509d;
-}
-
-#enter_blog{
-    position: relative;
-    left: 35%;
+    color: #2c2a4a80;
 }
