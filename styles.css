@@ -9,7 +9,7 @@
 body {
     font-family: monospace;
     line-height: 1.6;
-    background-image: url("/images/bkg0_body.jpg");
+    background-image: url("images/bkg0_body.jpg");
     background-repeat:   no-repeat;
 }
 
