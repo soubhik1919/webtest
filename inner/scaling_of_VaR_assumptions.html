@@ -40,10 +40,10 @@
             Assumption 1: The 1-period log returns are independent and identically distributed.
            </h3>
         <p>
-            If the 1-period log returns are distributed as
+            If the 1-period log returns are independent and identically distributed as
             $$r_{1} \sim \mathcal{D}_{r_{1}}(\mu, \sigma^{2})$$
-            where \(\mathcal{D}_{r_{1}}(\mu, \sigma^{2})\) denotes any arbitrary distribution with mean \(\mu\) and variance \(\sigma^{2}\).
-            The n-period log return would then be distributed as 
+            where \(\mathcal{D}_{r_{1}}(\mu, \sigma^{2})\) denotes any arbitrary distribution with mean \(\mu\) and variance \(\sigma^{2}\),
+            the n-period log return would then be distributed as 
             $$r_{n} \sim \mathcal{D}_{r_{n}}(n\mu, n\sigma^{2})$$
             where \(\mathcal{D}_{r_{n}}\) is in general of a different type than \(\mathcal{D}_{r_{1}}\).
             <br>
@@ -99,7 +99,7 @@
         <p>
             Under real world scenarios, where the above assumptions of the 1-period log returns being i.i.d. and sampled from a normal distribution with mean 0 may only be approximately valid i.e.
             $$r_{1} \sim^{i.i.d} \mathcal{N}(\mu \simeq 0, \sigma^{2})$$
-            the n-period VaR may be roughly estimated by the scaling
+            the n-period VaR may also only be roughly estimated by the scaling
             $$V_{n}^{q}\simeq \sqrt{n}V_{1}^{q}$$
         <br>
         <br>
