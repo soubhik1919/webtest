@@ -5,21 +5,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="styles_inner.css">
+    <script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
 </head>
 <body>
     <div class="container">
         <div class="banner">
             <h1 id="topic_name">Scaling of VaR: Assumptions</h1>
         <p>
-            It is often the practice to convert the 1-period value at risk (VaR) into an equivalent VaR estimate for a period with a different length T, 
-            by scaling the 1-period VaR with the  square root of T.
+            It is often the practice to convert the 1-period <a href="https://en.wikipedia.org/wiki/Value_at_risk" target="_blank" style="padding-right: 1px;">value at risk</a>(VaR) 
+            into an equivalent VaR estimate for a period with a different length T, by scaling the 1-period VaR by the  square root of T.
         </p>
         <p>
-            We shall discuss here the assumptions underlying the validity of the above transformation. 
-            This shall allow us to also identify the conditions under which the scaling of the 1-period VaR may cease to remain valid.
-        </p>
+            Since the 1-period VaR may be regarded as some \( q\)<sup>th.</sup> quantile of the return distribution, let us denote it by \(V_{1}^{q}\). 
+            The scaling of 1-period VaR to estimate the equivalent n-period VaR \(V_{n}^{q}\) can thus be written as
 
+            $$V_{n}^{q} = \sqrt{n}V_{1}^{q}$$
+        </p>
+        <p>
+            We shall discuss here, in some detail, the assumptions underlying the validity of the above transformation. 
+            This shall allow us to also identify the conditions under which this simple scaling of the 1-period VaR may cease to remain valid.
+        </p>
+        <br>
+           <h3 id="section">
+            Assumption 0: The returns are specified by the log returns.
+           </h3>
+        <p>
+            The n-period log return \(r_{n}\) is equal to the sum of n 1-period log returns \(r_{1}\)(s).
+            $$r_{n} = \sum_{i=1}^{n}r_{1,i}$$
+        </p>
+        <h3 id="section">
+            Assumption 1: The 1-period log returns are independent and identically distributed.
+           </h3>
+        <p>
+            If the 1-period log returns are distributed as
+            $$r_{1} \sim \mathcal{D}_{r_{1}}(\mu, \sigma^{2})$$
+            where \(\mathcal{D}_{r_{1}}(\mu, \sigma^{2})\) denotes any arbitrary distribution with mean \(\mu\) and variance \(\sigma^{2}\).
+            The n-period log return would then be distributed as 
+            $$r_{n} \sim \mathcal{D}_{r_{n}}(n\mu, n\sigma^{2})$$
+            where \(\mathcal{D}_{r_{n}}\) is in general of a different type than \(\mathcal{D}_{r_{1}}\).
+            <br>
+            Infact the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" style="padding-right: 1px;">central limit theorem</a> states that
+            $$\lim_{n\to \infty}\mathcal{D}_{r_{n}} \to \mathcal{N}(n\mu,n\sigma^{2})$$
+        </p>
+        <br>
+        <h3 id="section">
+            Mathematical formulation of VaR
+        </h3>
+        <p>
+            The 1-period VaR \(V_{1}^{q}\) may be defined from
+            $$\int_{-\infty}^{V_{1}^{q}}{\mathcal{D}_{r_{1}}(r_{1};\mu, \sigma^{2})}dr_{1}=q$$
+
+            Under a change of variable \(y=\sqrt{n}r_{1}\), the above equation may be re-expressed as 
+            $$\int_{-\infty}^{\sqrt{n}V_{1}^{q}}{\mathcal{D}_{r_{1}}(y/\sqrt{n};\mu, \sigma^{2})}(1/\sqrt{n})dy=q$$
+
+            However from the <a href="https://en.wikipedia.org/wiki/Probability_density_function" target="_blank" style="padding-right: 1px;">transformation of probability densities</a>, 
+            it can be shown that
+            $$y=\sqrt{n}r_{1} \sim \mathcal{D}_{y}(\sqrt{n}\mu, n\sigma^{2})=(1/\sqrt{n})\mathcal{D}_{r_{1}}(y/\sqrt{n};\mu, \sigma^{2})$$
+
+            Thus, using the above three equations we can equate
+            $$\int_{-\infty}^{V_{1}^{q}}{\mathcal{D}_{r_{1}}(r_{1};\mu, \sigma^{2})}dr_{1}=\int_{-\infty}^{\sqrt{n}V_{1}^{q}}{\mathcal{D}_{y}(y;\sqrt{n}\mu, n\sigma^{2})}dy = q$$
+
+            Hence, the equivalent VaR for \(y=\sqrt{n}r_{1}\) can be obtained as 
+            $$V_{y}^{q}=\sqrt{n}V_{1}^{q}$$
+        </p>
+           <h3 id="section">
+            Assumption 2: The log returns are normally distributed with mean 0.
+           </h3>
+        <p>
+            Following the above formulation, the equivalent VaR \(V_{n}^{q}\) for the n-period return can be defined from
+            $$\int_{-\infty}^{V_{n}^{q}}{\mathcal{D}_{r_{n}}(r_{n};n\mu, n\sigma^{2})}dr_{n}=q$$
+
+           In general however, \(\mathcal{D}_{r_{n}}\) is of a different type than \(\mathcal{D}_{y}\) and we cannot leverage the results of the preceding section to determine \(V_{n}^{q}\).
+           <br>
+           If the 1-period log returns are normally distributed i.e.
+           $$r_{1} \sim \mathcal{N}(\mu, \sigma^{2})$$
+           
+           we can state that \(r_{n}\) and \(y\) both also follow a normal distribution, albeit with different means
+           $$r_{n} \sim \mathcal{N}(n\mu, n\sigma^{2})$$
+           $$y=\sqrt{n}r_{1} \sim \mathcal{N}(\sqrt{n}\mu, n\sigma^{2})$$
+
+           Only if the 1-period log returns are normally distributed with mean 0, the distribution of \(r_{n}\) and \(y\) can be regarded as identical
+           $$\mathcal{N}(r_{n};n\mu = 0, n\sigma^{2}) = \mathcal{N}(y;\sqrt{n}\mu = 0, n\sigma^{2})$$
+           and the n-period VaR \(V_{n}^{q}\) obtained exactly as 
+           $$V_{n}^{q}=\sqrt{n}V_{1}^{q}$$
+        
+        <h3 id="section">
+            Approximate scenarios:
+        </h3>
+
+        <p>
+            Under real world scenarios, where the above assumptions of the 1-period log returns being i.i.d. and sampled from a normal distribution with mean 0 may only be approximately valid i.e.
+            $$r_{1} \sim^{i.i.d} \mathcal{N}(\mu \simeq 0, \sigma^{2})$$
+            the n-period VaR may be roughly estimated by the scaling
+            $$V_{n}^{q}\simeq \sqrt{n}V_{1}^{q}$$
+        <br>
+        <br>
     </div>
     
 </body>
+<footer>
+    <a href="blog_main.html">Other Blogs</a>
+</footer>
 </html>
