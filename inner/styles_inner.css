@@ -55,3 +55,17 @@ a {
     font-weight:bolder;
     color: #bc4b5195;
 }
+
+pre {
+	padding: 0;
+	margin: 0;
+	overflow: auto;
+	overflow-y: hidden;
+	font-size: 15px;
+	line-height: 20px;
+	background: #E4E2DA;
+        font-family: "Lucida Console", Courier, monospace;
+	
+}
+pre code {
+}

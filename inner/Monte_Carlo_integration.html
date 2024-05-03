@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles_inner.css">
+    <script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="banner">
+            <h1 id="topic_name">Monte Carlo Integration</h1>
+            <p>
+                Monte Carlo integration is a numerical method used to approximate the value of a definite integral, 
+                especially in cases where the integrand is complex or high-dimensional.
+                <br>
+                The method derives from the <a href="https://en.wikipedia.org/wiki/Law_of_large_numbers" target="_blank" style="padding-right: 1px;">law of large numbers</a>.
+            </p>
+            <br>
+            <h3 id="section">
+                Mathematical formulation
+            </h3>
+            <p>
+                Let \(\{X\}_{n}\) be a sample of size \(n\) from the interval \([a,b]\) of an IID random variable \(X\). Given the 
+                <a href="https://en.wikipedia.org/wiki/Probability_density_function" target="_blank" style="padding-right: 1px;">probability density function</a>(p.d.f.) \(f_{X}\) of \(X\)
+                 and a function \(g(X)\) defined and continuous on the interval \([a,b]\), 
+                 from the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" style="padding-right: 1px;">central limit theorem</a> we can state
+                 $$\lim_{n \to \infty} \mathbb{E}[g(X)_{n}] =\lim_{n \to \infty} \frac{1}{n}\sum_{i=1}^{n}{g(X_{i})} = \int_{a}^{b}{g(x)f_{X}(x)dx}$$
+
+                 If \(X \sim f_{X} = \mathcal{U}(a,b)=\dfrac{1}{b-a}\),
+                 $$\int_{a}^{b}{g(x)dx}=\lim_{n \to \infty} \frac{b-a}{n}\sum_{i=1}^{n}{g(X_{i})}$$
+            </p>
+            <p>
+                This states that the definite integral of the function \(g(x)\) approaches the scaled sample average of \(\{g(X)\}_{n}\) as the sample size \(n \to \infty\).
+                <br>
+                As evident, the methology can also be simply extended to compute integrals in higher dimensions.
+            </p>
+            <br>
+            <h3 id="section">
+                Example demonstration
+            </h3>
+            <p>
+                Let us consider as example, the calculation of the following definite integral
+                $$\int_{0}^{5}\int_{-2}^{2}\frac{\cos^{2} {\pi(x+y)}}{\sqrt[4]{1+xy^{2}}}dx dy$$
+                where the 2-dimensional integrand is
+                $$g(x,y)=\frac{\cos^{2} {\pi(x+y)}}{\sqrt[4]{1+xy^{2}}}$$
+                <br>
+                Inorder to compute the integral, we first define \(g(x,y)\) in Python using the built-in Numpy library
+            </p>
+                <pre><code class="python">
+                    import numpy as np
+                    def g(x,y):
+                        return np.cos(np.pi*(x+y))**2/(1+x*y**2)**(1/4)
+                </code></pre>
+                <br>
+            <p>
+                The following code implements the Monte Carlo integration methodology to compute the above definite integral
+                using an uniformly distributed sample of size 300 points in the \((x,y)\) plane
+            </p>
+                <pre><code class="python">
+                    xy_min = [0, -2] # lower limits of the integration
+                    xy_max = [5, 2] # upper limits of the integration
+                    npts=300 # sample size
+                    #---generate random sample---#
+                    xy=np.random.uniform(low=xy_min, high=xy_max, size=(npts,2)) # uniformly distributed random sample of (x,y)
+                    fsample=np.array([g(e[0],e[1]) for e in xy]) # sample of function values of size npts
+                    #---calculate Monte Carlo integral---#
+                    fmean=fsample.mean() # sample mean of function value
+                    I=(xy_max[0]-xy_min[0])*(xy_max[1]-xy_min[1])* fmean # integral value 
+                    print(I)
+                </code></pre>
+            <br>
+            <p>
+                Below is the contour plot of the function \(g(x,y)\) and the random sample of 300 points over the range of the integration 
+                <center><img src="images/contour_g.jpg" alt="contour" title="contour plot of the integrand."/></center>
+            </p>
+            <p>
+                Although the output of the computation, to a degree, is random due to the underlying stochastic sampling, it converges to the theoretical value of the integral (\(7.76\) in this example) 
+                as the sample size increases. 
+                <br>
+                This fact is illustrated in the following figure which shows the standard deviation of the Monte Carlo based estimation of the integral reducing with increasing sample size.
+                <center><img src="images/convergence_of_integral.jpg" alt="convergence" title="convergence of the Monte Carlo integration."/></center>
+
+            </p>
+
+            
+
+            
+            
+    </div>
+</body>
